@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>操作系统</title>
-        <meta name="robots" content="noindex">
+        <title>文件系统 - 操作系统</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="前言.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="计算机系统概述.html"><strong aria-hidden="true">2.</strong> 计算机系统概述</a></li><li class="chapter-item expanded "><a href="进程管理.html"><strong aria-hidden="true">3.</strong> 进程管理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="进程与线程.html"><strong aria-hidden="true">3.1.</strong> 进程与线程</a></li><li class="chapter-item expanded "><a href="进程管理.html"><strong aria-hidden="true">3.2.</strong> 进程管理</a></li><li class="chapter-item expanded "><a href="进程同步.html"><strong aria-hidden="true">3.3.</strong> 同步与互斥</a></li><li class="chapter-item expanded "><a href="死锁.html"><strong aria-hidden="true">3.4.</strong> 死锁</a></li></ol></li><li class="chapter-item expanded "><a href="存储管理.html"><strong aria-hidden="true">4.</strong> 存储管理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="内存管理.html"><strong aria-hidden="true">4.1.</strong> 内存管理</a></li><li class="chapter-item expanded "><a href="虚拟内存.html"><strong aria-hidden="true">4.2.</strong> 虚拟内存</a></li></ol></li><li class="chapter-item expanded "><a href="文件管理.html"><strong aria-hidden="true">5.</strong> 文件管理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="文件系统基础.html"><strong aria-hidden="true">5.1.</strong> 文件系统基础</a></li><li class="chapter-item expanded "><a href="目录.html"><strong aria-hidden="true">5.2.</strong> 目录</a></li><li class="chapter-item expanded "><a href="文件系统.html"><strong aria-hidden="true">5.3.</strong> 文件系统</a></li></ol></li><li class="chapter-item expanded "><a href="IO管理.html"><strong aria-hidden="true">6.</strong> I/O管理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="IO管理概述.html"><strong aria-hidden="true">6.1.</strong> I/O 管理概述</a></li><li class="chapter-item expanded "><a href="IO核心子系统.html"><strong aria-hidden="true">6.2.</strong> I/O核心子系统</a></li><li class="chapter-item expanded "><a href="磁盘与固态硬盘.html"><strong aria-hidden="true">6.3.</strong> 磁盘与固态硬盘</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="前言.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="计算机系统概述.html"><strong aria-hidden="true">2.</strong> 计算机系统概述</a></li><li class="chapter-item expanded "><a href="进程管理.html"><strong aria-hidden="true">3.</strong> 进程管理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="进程与线程.html"><strong aria-hidden="true">3.1.</strong> 进程与线程</a></li><li class="chapter-item expanded "><a href="进程管理.html"><strong aria-hidden="true">3.2.</strong> 进程管理</a></li><li class="chapter-item expanded "><a href="进程同步.html"><strong aria-hidden="true">3.3.</strong> 同步与互斥</a></li><li class="chapter-item expanded "><a href="死锁.html"><strong aria-hidden="true">3.4.</strong> 死锁</a></li></ol></li><li class="chapter-item expanded "><a href="存储管理.html"><strong aria-hidden="true">4.</strong> 存储管理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="内存管理.html"><strong aria-hidden="true">4.1.</strong> 内存管理</a></li><li class="chapter-item expanded "><a href="虚拟内存.html"><strong aria-hidden="true">4.2.</strong> 虚拟内存</a></li></ol></li><li class="chapter-item expanded "><a href="文件管理.html"><strong aria-hidden="true">5.</strong> 文件管理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="文件系统基础.html"><strong aria-hidden="true">5.1.</strong> 文件系统基础</a></li><li class="chapter-item expanded "><a href="目录.html"><strong aria-hidden="true">5.2.</strong> 目录</a></li><li class="chapter-item expanded "><a href="文件系统.html" class="active"><strong aria-hidden="true">5.3.</strong> 文件系统</a></li></ol></li><li class="chapter-item expanded "><a href="IO管理.html"><strong aria-hidden="true">6.</strong> I/O管理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="IO管理概述.html"><strong aria-hidden="true">6.1.</strong> I/O 管理概述</a></li><li class="chapter-item expanded "><a href="IO核心子系统.html"><strong aria-hidden="true">6.2.</strong> I/O核心子系统</a></li><li class="chapter-item expanded "><a href="磁盘与固态硬盘.html"><strong aria-hidden="true">6.3.</strong> 磁盘与固态硬盘</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -175,47 +174,19 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="前言"><a class="header" href="#前言">前言</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="计算机系统概述"><a class="header" href="#计算机系统概述">计算机系统概述</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="进程管理"><a class="header" href="#进程管理">进程管理</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="进程与线程"><a class="header" href="#进程与线程">进程与线程</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="进程管理-1"><a class="header" href="#进程管理-1">进程管理</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="同步与互斥"><a class="header" href="#同步与互斥">同步与互斥</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="死锁"><a class="header" href="#死锁">死锁</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="存储管理"><a class="header" href="#存储管理">存储管理</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="内存管理"><a class="header" href="#内存管理">内存管理</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="虚拟内存"><a class="header" href="#虚拟内存">虚拟内存</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="文件管理"><a class="header" href="#文件管理">文件管理</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="文件系统基础"><a class="header" href="#文件系统基础">文件系统基础</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="目录"><a class="header" href="#目录">目录</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="文件系统"><a class="header" href="#文件系统">文件系统</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="io管理"><a class="header" href="#io管理">I/O管理</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="io-管理概述"><a class="header" href="#io-管理概述">I/O 管理概述</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="io核心子系统"><a class="header" href="#io核心子系统">I/O核心子系统</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="磁盘与固态硬盘"><a class="header" href="#磁盘与固态硬盘">磁盘与固态硬盘</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="目录.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="IO管理.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -223,7 +194,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="目录.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="IO管理.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -246,11 +223,6 @@
 
         <!-- Custom JS scripts -->
 
-        <script>
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
 
     </div>
     </body>
