@@ -175,6 +175,68 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="io-管理概述"><a class="header" href="#io-管理概述">I/O 管理概述</a></h1>
+<ul>
+<li><a href="#io-%E8%AE%BE%E5%A4%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%88%86%E7%B1%BB">I/O 设备的基本概念与分类</a></li>
+<li><a href="#io-%E6%8E%A7%E5%88%B6%E5%99%A8">I/O 控制器</a></li>
+<li><a href="#io-%E6%8E%A7%E5%88%B6%E6%96%B9%E5%BC%8F">I/O 控制方式</a></li>
+<li><a href="#io%E8%BD%AF%E4%BB%B6%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84">IO软件层次结构</a></li>
+<li><a href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3%E5%92%8C%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3">输入输出应用程序接口和驱动程序接口</a></li>
+</ul>
+<h2 id="io-设备的基本概念与分类"><a class="header" href="#io-设备的基本概念与分类">I/O 设备的基本概念与分类</a></h2>
+<p>“l/O”就是“输入/输出”（Input/Output)</p>
+<p>I/O 设备就是可以将数据输入到计算机，或者可以接收计算机输出数据的外部设备，属于计算机中的
+硬件部件。</p>
+<p>UNIX系统将外部设备抽象为一种特殊的文件，用户可以使用
+与文件操作相同的方式对外部设备进行操作。</p>
+<p>Write操作：向外部设备写出数据</p>
+<p>Read操作：：从外部设备读入数据</p>
+<p>I/O 设备的分类一一按使用特性</p>
+<ul>
+<li>人机交互类外部设备：数据传输速度慢</li>
+<li>存储设备：数据传输速度快</li>
+<li>网络通信设备：数据传输速度介于上述二者之间</li>
+</ul>
+<p>I/O 设备的分类一一按传输速率分类</p>
+<ul>
+<li>低速设备：鼠标、键盘等一一传输速率为每秒几个到几百字节</li>
+<li>中速设备：如激光打印机等——传输速率为每秒数千至上万个字节</li>
+<li>高速设备：如磁盘等一传输速率为每秒数千字节至千兆字节的设备</li>
+</ul>
+<p>I/O 设备的分类一一按信息交换的单位分类</p>
+<ul>
+<li>块设备，传输速率较高，可寻址，即对它可随机地读/写任一块I/O设备按信息交换的单位分类，块设备：如磁盘等一一数据传输的基本单位是“块”。</li>
+<li>字符设备，传输速率较慢，不可寻址，在输入/输出时常采用中断驱动方式。字符设备：鼠标、键盘等，数据传输的基本单位是字符。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523160637.png" alt="" /></p>
+<h2 id="io-控制器"><a class="header" href="#io-控制器">I/O 控制器</a></h2>
+<p>I/O设备的机械部件主要用来执行具体I/O操作。</p>
+<p>如我们看得见摸得着的鼠标/键盘的按钮；显示器的LED屏；移动硬盘的磁臂、磁盘盘面。</p>
+<p>I/O设备的电子部件通常是一块插入主板扩充槽的印刷电路板。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523161411.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523162802.png" alt="" /></p>
+<h2 id="io-控制方式"><a class="header" href="#io-控制方式">I/O 控制方式</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523164758.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523165013.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523165432.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523165703.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523165928.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523170143.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523170425.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523170553.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523173359.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523173613.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523173840.png" alt="" /></p>
+<h2 id="io软件层次结构"><a class="header" href="#io软件层次结构">IO软件层次结构</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523175043.png" alt="" /></p>
+<h2 id="输入输出应用程序接口和驱动程序接口"><a class="header" href="#输入输出应用程序接口和驱动程序接口">输入输出应用程序接口和驱动程序接口</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523180016.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523180046.png" alt="" /></p>
+<p>阻塞/非阻塞I/O</p>
+<p>阻塞I/O：应用程序发出I/0系统调用，进程需转为阻塞态等待。</p>
+<p>eg：字符设备接口－－从键盘读一个字符 get</p>
+<p>非阻塞I/O：应用程序发出I/O系统调用，系统调用可迅速返回，进程无需阻塞等待。</p>
+<p>eg：块设备接口－一往磁盘写数据write</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240523180527.png" alt="" /></p>
 
                     </main>
 

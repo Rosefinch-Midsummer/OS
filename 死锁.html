@@ -175,6 +175,69 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="死锁"><a class="header" href="#死锁">死锁</a></h1>
+<ul>
+<li><a href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A6%82%E5%BF%B5">死锁的概念</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81">什么是死锁</a></li>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E6%AD%BB%E9%94%81%E9%A5%A5%E9%A5%BF%E6%AD%BB%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%8C%BA%E5%88%AB">进程死锁、饥饿、死循环的区别</a></li>
+<li><a href="#%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6">死锁产生的必要条件</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81">什么时候会发生死锁</a></li>
+</ul>
+</li>
+<li><a href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5">死锁的处理策略</a>
+<ul>
+<li><a href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81">预防死锁</a></li>
+<li><a href="#%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81">避免死锁</a></li>
+<li><a href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A3%80%E6%B5%8B%E5%92%8C%E8%A7%A3%E9%99%A4">死锁的检测和解除</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="死锁的概念"><a class="header" href="#死锁的概念">死锁的概念</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518170122.png" alt="" /></p>
+<h3 id="什么是死锁"><a class="header" href="#什么是死锁">什么是死锁</a></h3>
+<p>在并发环境下，各进程因竞争资源而造成的一种互相等待对方手里的资源，导致各进程都阻塞，都无法向前推进的现象，就是“死锁”发生死锁后若无外力干涉这些进程都将无法向前推进</p>
+<h3 id="进程死锁饥饿死循环的区别"><a class="header" href="#进程死锁饥饿死循环的区别">进程死锁、饥饿、死循环的区别</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518164642.png" alt="" /></p>
+<h3 id="死锁产生的必要条件"><a class="header" href="#死锁产生的必要条件">死锁产生的必要条件</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518165312.png" alt="" /></p>
+<h3 id="什么时候会发生死锁"><a class="header" href="#什么时候会发生死锁">什么时候会发生死锁</a></h3>
+<p>1．对系统资源的竞争。各进程对不可剥夺的资源（如打印机）的竞争可能引起死锁，对可剥夺的资
+源（CPU）的竞争是不会引起死锁的。</p>
+<p>2.进程推进顺序非法。请求和释放资源的顺序不当，也同样会导致死锁。例如，并发执行的进程P1、P2分别申请并占有了资源R1、R2，之后进程P1又紧接着申请资源R2，而进程P2又申请资源R1,
+两者会因为申请的资源被对方占有而阻塞，从而发生死锁。</p>
+<p>3.信号量的使用不当也会造成死锁。如生产者-消费者问题中，如果实现互斥的P操作在实现同步的
+P操作之前，就有可能导致死锁。（可以把互斥信号量、同步信号量也看做是一种抽象的系统资
+源)</p>
+<p>总之，对不可剥夺资源的不合理分配，可能导致死锁。</p>
+<h2 id="死锁的处理策略"><a class="header" href="#死锁的处理策略">死锁的处理策略</a></h2>
+<p>1．预防死锁。破坏死锁产生的四个必要条件中的一个或几个。</p>
+<p>2．避免死锁。用某种方法防止系统进入不安全状态，从而避免死锁（银行家算法）</p>
+<p>3．死锁的检测和解除。允许死锁的发生，不过操作系统会负责检测出死锁的发生，然后采取某种措施解除死锁。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518170440.png" alt="" /></p>
+<h3 id="预防死锁"><a class="header" href="#预防死锁">预防死锁</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518170548.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518170734.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518170941.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518171329.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518171427.png" alt="" /></p>
+<h3 id="避免死锁"><a class="header" href="#避免死锁">避免死锁</a></h3>
+<p>什么是安全序列？什么是系统的不安全状态，与死锁有何联系？</p>
+<p>所谓安全序列，就是指如果系统按照这种序列分配资源，则每个进程都能顺利完成。只要能找出一个安全序列，系统就是安全状态。当然，安全序列可能有多个。</p>
+<p>如果分配了资源之后，系统中找不出任何一个安全序列，系统就进入了不安全状态。这就意味着之后可能所有进程都无法顺利的执行下去。当然，如果有进程提前归还了一些资源，那系统也有可能重新回到安全状态，不过我们在分配资源之前总是要考虑到最坏的情况。</p>
+<p>如果系统处于安全状态，就一定不会发生死锁。如果系统进入不安全状态，就可能发生死锁（处于不安全状态未必就是发生了死锁，但发生死锁时一定是在不安全状态）</p>
+<p>因此可以在资源分配之前预先判断这次分配是否会导致系统进入不安全状态，以此决定是否答应资源分配请求。这也是“银行家算法”的核心思想。</p>
+<p>如何避免系统进入不安全状态 银行家算法</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518181525.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518181553.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518181616.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518181333.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518181450.png" alt="" /></p>
+<h3 id="死锁的检测和解除"><a class="header" href="#死锁的检测和解除">死锁的检测和解除</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518182823.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518182900.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518182924.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518182955.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240518183021.png" alt="" /></p>
 
                     </main>
 

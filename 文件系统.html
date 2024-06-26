@@ -174,7 +174,31 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="文件系统"><a class="header" href="#文件系统">文件系统</a></h1>
+<h1 id="文件系统和虚拟文件系统"><a class="header" href="#文件系统和虚拟文件系统">文件系统和虚拟文件系统</a></h1>
+<ul>
+<li><a href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84">文件系统层次结构</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%A8%E5%B1%80%E7%BB%93%E6%9E%84%E5%B8%83%E5%B1%80">文件系统的全局结构（布局）</a></li>
+<li><a href="#%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">虚拟文件系统</a></li>
+</ul>
+<h2 id="文件系统层次结构"><a class="header" href="#文件系统层次结构">文件系统层次结构</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240521162913.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240521163121.png" alt="" /></p>
+<h2 id="文件系统的全局结构布局"><a class="header" href="#文件系统的全局结构布局">文件系统的全局结构（布局）</a></h2>
+<p>物理格式化，即低级格式化一一划分扇区，检测坏扇区，并用备用扇区替换坏扇区</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240521164535.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626224721.png" alt="" /></p>
+<p>下图展示了文件系统在内存中的结构：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626224609.png" alt="" /></p>
+<p>注：近期访问过的目录文件会缓存在内存中，不用每次都从磁盘读入，这样可以加快目录检索速度</p>
+<h2 id="虚拟文件系统"><a class="header" href="#虚拟文件系统">虚拟文件系统</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626225052.png" alt="" /></p>
+<p>虚拟文件系统的特点：</p>
+<p>①向上层用户进程提供统一标准的系统调用接口，屏蔽底层具体文件系统的实现差异</p>
+<p>②VFS要求下层的文件系统必须实现某些规定的函数功能，如：open/read/write。</p>
+<p>一个新的文件系统想要在某操作系统上被使用，就必须满足该操作系统VFS的要求</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626225314.png" alt="" /></p>
+<p>打开文件后，创建vnode，并将文件信息复制到vnode中，vnode的功能指针指向具体文件系统的函数功能。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626225432.png" alt="" /></p>
 
                     </main>
 

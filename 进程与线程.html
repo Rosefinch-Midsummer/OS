@@ -175,6 +175,76 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="进程与线程"><a class="header" href="#进程与线程">进程与线程</a></h1>
+<ul>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5%E7%BB%84%E6%88%90%E7%89%B9%E5%BE%81">进程的概念、组成、特征</a></li>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%8E%E8%BD%AC%E6%8D%A2">进程的状态与转换</a></li>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6">进程控制</a></li>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1">进程通信</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B">线程</a></li>
+</ul>
+<h2 id="进程的概念组成特征"><a class="header" href="#进程的概念组成特征">进程的概念、组成、特征</a></h2>
+<p>进程和程序的区别和联系：</p>
+<p>区别：</p>
+<p>1)进程是动态的;程序是静态的。</p>
+<p>(2)进程有独立性，能并发执行;程序不能并发执行。</p>
+<p>(3)二者无一一对应关系。</p>
+<p>(4)进程异步运行，会相互制约;程序不具备此特征。</p>
+<p>但是，进程与程序又有密切的联系： 进程不能脱离具体程序而虚设， 程序规定了相应进程所要完成的动作。</p>
+<p>(5)组成不同。进程包含PCB、程序段、数据段。程序包含数据和指令代码。</p>
+<p>(6)程序是一个包含了所有指令和数据的静态实体。本身除占用磁盘的存储空间外，并不占用系统如CPU、内存等运行资源。</p>
+<p>(7)进程由程序段、数据段和PCB构成,会占用系统如CPU、内存等运行资源。
+(8)一个程序可以启动多个进程来共同完成。</p>
+<p>联系：进程不能脱离具体程序而虚设， 程序规定了相应进程所要完成的动作。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240512143720.png" alt="" /></p>
+<p>进程的组成其中最重要的就是进程控制块PCB（Process Control Block）</p>
+<p>PCB简介：</p>
+<p>PCB中记录了操作系统所需的，用于描述进程的当前情况以及控制进程运行的全部信息。</p>
+<p>PCB的作用是使一个在多道程序环境下不能独立运行的程序（含数据），成为一个能独立运行的基本单位，一个能与其他进程并发执行的进程。</p>
+<p>或者说，OS是根据PCB来对并发执行的进程进行控制和管理的。</p>
+<p>例如，当OS要调度某进程执行时，要从该进程的PCB中查处其现行状态及优先级；在调度到某进程后，要根据其PCB中所保存的处理机状态信息，设置该进程恢复运行的现场，并根据其PCB中的程序和数据的内存始址，找到其程序和数据；</p>
+<p>进程在执行过程中，当需要和与之合作的进程实现同步，通信或者访问文件时，也都需要访问PCB；</p>
+<p>当进程由于某种原因而暂停执行时，又须将器断点的处理机环境保存在PCB中。</p>
+<p>可见，在进程的整个生命期中，系统总是通过PCB对进程进行控制的，即系统是根据进程的PCB而不是任何别的什么而感知到该进程的存在的。</p>
+<p>所以说，PCB是进程存在的唯一标志。</p>
+<h2 id="进程的状态与转换"><a class="header" href="#进程的状态与转换">进程的状态与转换</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240512145202.png" alt="" /></p>
+<p>这里说明一下调度和切换的区别：</p>
+<p>调度是指决定资源分配给哪个进程的行为，是一种决策行为</p>
+<p>切换是指实际分配的行为，是执行行为</p>
+<p>一般来说现有资源调度，后有进程切换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240512145800.png" alt="" /></p>
+<h2 id="进程控制"><a class="header" href="#进程控制">进程控制</a></h2>
+<p>进程控制大致图解</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626210532.png" alt="" /></p>
+<p>这里说明一下调度和切换的区别：</p>
+<p>调度是指决定资源分配给哪个进程的行为，是一种决策行为</p>
+<p>切换是指实际分配的行为，是执行行为</p>
+<p>一般来说现有资源调度，后有进程切换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626210726.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626210752.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626210804.png" alt="" /></p>
+<p>进程的唤醒和阻塞原语</p>
+<p>进程的阻塞和唤醒原语是成对存在的，必须成对使用。</p>
+<p>阻塞原语是由被阻塞进程自我调用实现的</p>
+<p>唤醒原语是由一个被唤醒进程合作或被其他相关的进程调用实现的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626210820.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240512152958.png" alt="" /></p>
+<h2 id="进程通信"><a class="header" href="#进程通信">进程通信</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240512161243.png" alt="" /></p>
+<h2 id="线程"><a class="header" href="#线程">线程</a></h2>
+<p>线程是什么？</p>
+<p>可以把线程理解为“轻量级进程”</p>
+<p>线程是一个基本的CPU执行单元，也是程序执行流的最小单位。</p>
+<p>引入线程之后，不仅是进程之间可以并发，进程内的各线程之间也可以并发，从而进一步提升了
+系统的并发度，使得一个进程内也可以并发处理各种任务（如QQ视频、文字聊天、传文件）</p>
+<p>引入线程后，进程只作为除CPU之外的系统资源的分配单元（如打印机、内存地址空间等都是分配给进程的）。</p>
+<p>引入线程带来的变化及进程与线程的比较</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626211036.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240626211125.png" alt="" /></p>
+<p>线程的实现方式</p>
+<p>前面我们了解了引入线程的好处和引入线程的变化，以及线程的属性，那么线程如何实现呢？</p>
+<p>线程的实现分为两类：用户级线程(User-Level Thread,UTL)和内核级线程(Kernel-Level Thread, KTL)。内核级线程又称内核支持的线程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240512213903.png" alt="" /></p>
 
                     </main>
 

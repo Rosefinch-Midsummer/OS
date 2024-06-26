@@ -175,6 +175,66 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="磁盘与固态硬盘"><a class="header" href="#磁盘与固态硬盘">磁盘与固态硬盘</a></h1>
+<ul>
+<li><a href="#%E7%A3%81%E7%9B%98%E7%9A%84%E7%BB%93%E6%9E%84">磁盘的结构</a></li>
+<li><a href="#%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95">磁盘调度算法</a></li>
+<li><a href="#%E5%87%8F%E5%B0%91%E7%A3%81%E7%9B%98%E5%BB%B6%E8%BF%9F%E6%97%B6%E9%97%B4%E7%9A%84%E7%AE%97%E6%B3%95">减少磁盘延迟时间的算法</a></li>
+<li><a href="#%E7%A3%81%E7%9B%98%E7%9A%84%E7%AE%A1%E7%90%86">磁盘的管理</a></li>
+<li><a href="#%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98ssd">固态硬盘SSD</a></li>
+</ul>
+<h2 id="磁盘的结构"><a class="header" href="#磁盘的结构">磁盘的结构</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240525171435.png" alt="" /></p>
+<p>磁盘的分类：</p>
+<p>磁头可以移动的称为活动头磁盘。磁臂可以来回伸缩来带动磁头定位磁道</p>
+<p>磁头不可移动的称为固定头磁盘。这种磁盘中每个磁道有一个磁头</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240525171710.png" alt="" /></p>
+<h2 id="磁盘调度算法"><a class="header" href="#磁盘调度算法">磁盘调度算法</a></h2>
+<p>一次磁盘读/写操作需要的时间</p>
+<p>寻找时间（寻道时间）T：在读/写数据前，将磁头移动到指定磁道所花的时间。</p>
+<p>①启动磁头臂是需要时间的。假设耗时为S;</p>
+<p>②移动磁头也是需要时间的。假设磁头匀速移动，每跨越一个磁道耗时为m，总共需要跨越n条磁道。则：</p>
+<p>寻道时间Ts=S+m*n</p>
+<p>延迟时间T：通过旋转磁盘，使磁头定位到目标扇区所需要的时间。设磁盘转速为r（单位：转/秒，或转/分），则平均所需的延迟时间T=(1/2)*(1/r)=1/2r</p>
+<p>传输时间T：从磁盘读出或向磁盘写入数据所经历的时间，假设磁盘转速为r，此次读/写的字节数为b，每个磁道上的字节数为 N。则:传输时间Tt=(1/r)*(b/N)=b/(rN)</p>
+<p>每个磁道要可存N字节的数据，因此b字节的数据需要b/N个磁道才能存储。而读/写一个磁道所需的时间刚好又是转一圈所需要的时间1/r</p>
+<p>总的平均存取时间Ta=Ts+1/2r+b/(rN)</p>
+<p>延迟时间和传输时间都与磁盘转速相关，且为操线性相关。而转速是硬件的固有属性，因此操作系统也无法优化延迟时间和传输时间</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526144618.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526144818.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526145156.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526145353.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526145813.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526145914.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526150022.png" alt="" /></p>
+<h2 id="减少磁盘延迟时间的算法"><a class="header" href="#减少磁盘延迟时间的算法">减少磁盘延迟时间的算法</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526150331.png" alt="" /></p>
+<p>减少延迟时间的方法：交替编号</p>
+<p>若采用交替编号的策略，即让逻辑上相邻的扇区在物理上有一定的间隔，可以使读取连续的逻辑扇区所需要的延迟时间更小。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526150926.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526151315.png" alt="" /></p>
+<p>思考：为什么？</p>
+<p>磁盘的物理地址是（柱面号，盘面号，扇区号）而不是（盘面号，柱面号，扇区号）？</p>
+<p>答：<strong>读取地址连续的磁盘块时，采用（柱面号，盘面号，扇区号）的地址结构可以减少磁头移动消耗的时间</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526151742.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526151837.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526151908.png" alt="" /></p>
+<h2 id="磁盘的管理"><a class="header" href="#磁盘的管理">磁盘的管理</a></h2>
+<p>磁盘初始化：</p>
+<p>Step1：进行低级格式化（物理格式化），将磁盘的各个磁道划分为扇区。一个扇区通常可分为头、数据区域（如512B大小）、尾三个部分组成。管理扇区所需要的各种数据结构一般存放在头、尾两个部分，包括扇区校验码（如奇偶校验、CRC循环冗余校验码等，校验码用于校验扇区中的数据是否发生错误)</p>
+<p>Step 2：将磁盘分区，每个分区由若干柱面组成（即分为我们熟悉的C盘、D盘、E盘)</p>
+<p>Step 3：进行逻辑格式化，创建文件系统。包括创建文件系统的根目录、初始化存储空间管理所用的数据结构（如位示图、空闲分区表)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526152744.png" alt="" /></p>
+<p>坏块的管理</p>
+<p>坏了、无法正常使用的扇区就是“坏块”。这属于硬件故障，操作系统是无法修复的。应该将坏块标记出来，以免错误地使用到它</p>
+<p>对于简单的磁盘，可以在逻辑格式化时（建立文件系统时）对整个磁盘进行坏块检查，标明哪些扇区是坏扇区，比如：在FAT表上标明。（在这种方式中，坏块对操作系统不透明)</p>
+<p>对于复杂的磁盘，磁盘控制器（磁盘设备内部的一个硬件部件）会维护一个坏块链表。</p>
+<p>在磁盘出厂前进行低级格式化（物理格式化）时就将坏块链进行初始化。</p>
+<p>会保留一些“备用扇区”，用于替换坏块。这种方案称为扇区备用。且这种处理方式中，坏块对操作系统透明</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526153125.png" alt="" /></p>
+<h2 id="固态硬盘ssd"><a class="header" href="#固态硬盘ssd">固态硬盘SSD</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526153456.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526153529.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/20240526154218.png" alt="" /></p>
 
                     </main>
 
