@@ -789,6 +789,21 @@ P操作之前，就有可能导致死锁。（可以把互斥信号量、同步�
 <li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95">页面置换算法</a></li>
 <li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#%E9%A1%B5%E9%9D%A2%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%E6%8A%96%E5%8A%A8%E5%B7%A5%E4%BD%9C%E9%9B%86">页面分配策略、抖动、工作集</a></li>
 <li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6">内存映射文件</a></li>
+<li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#lru%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0">LRU调度机制实现</a>
+<ul>
+<li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0">问题描述</a></li>
+<li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#%E8%87%AA%E5%B7%B1%E5%86%99%E5%87%BA%E7%9A%84%E6%97%A0%E6%B3%95%E5%A4%84%E7%90%86%E5%A4%A7%E8%A7%84%E6%A8%A1%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BB%A3%E7%A0%81">自己写出的无法处理大规模输入数据的代码</a>
+<ul>
+<li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">问题分析</a></li>
+</ul>
+</li>
+<li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#gpt4%E7%BB%99%E5%87%BA%E7%9A%84%E6%AD%A3%E7%A1%AE%E4%BB%A3%E7%A0%81">GPT4给出的正确代码</a>
+<ul>
+<li><a href="%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html#%E4%BF%AE%E6%AD%A3%E7%9A%84%E5%85%B3%E9%94%AE%E7%82%B9">修正的关键点</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="虚拟内存的基本概念"><a class="header" href="#虚拟内存的基本概念">虚拟内存的基本概念</a></h2>
 <p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240505154346.png" alt="" /></p>
@@ -802,6 +817,252 @@ P操作之前，就有可能导致死锁。（可以把互斥信号量、同步�
 <p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240505172044.png" alt="" /></p>
 <h2 id="内存映射文件"><a class="header" href="#内存映射文件">内存映射文件</a></h2>
 <p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/20240507151355.png" alt="" /></p>
+<h1 id="lru调度机制实现"><a class="header" href="#lru调度机制实现">LRU调度机制实现</a></h1>
+<h2 id="问题描述"><a class="header" href="#问题描述">问题描述</a></h2>
+<p>请你设计并实现一个满足  LRU (最近最少使用) 缓存 约束的数据结构。</p>
+<p>实现 LRUCache 类：</p>
+<pre><code class="language-cpp">LRUCache(int capacity) 以 正整数 作为容量 capacity 初始化 LRU 缓存
+
+int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。
+
+void put(int key, int value) 如果关键字 key 已经存在，则变更其数据值 value ；如果不存在，则向缓存中插入该组 key-value 。如果插入操作导致关键字数量超过 capacity ，则应该 逐出 最久未使用的关键字。
+</code></pre>
+<p>函数 get 和 put 最好以 O(1) 的平均时间复杂度运行。</p>
+<h5 id="输入说明"><a class="header" href="#输入说明">输入说明</a></h5>
+<p>输入若干行：</p>
+<p>第一行输入一个整数capacity表示LRU缓存的容量。</p>
+<p>后面每行输入为put或get：</p>
+<p>如果指令为put类型，后面需要输入两个整数表示key和value。</p>
+<p>如果指令为get类型，后面需要输入一个整数表示key。</p>
+<p>提示：</p>
+<p>1 &lt;= capacity &lt;= 3000</p>
+<p>0 &lt;= key &lt;= 10000</p>
+<p>0 &lt;= value &lt;= 10^5</p>
+<p>最多调用 2 * 10^5 次 get 和 put</p>
+<h5 id="输出说明"><a class="header" href="#输出说明">输出说明</a></h5>
+<p>输出若干行:</p>
+<p>每行一个整数，表示为get指令的返回值。</p>
+<h5 id="示例"><a class="header" href="#示例">示例</a></h5>
+<p>输入</p>
+<pre><code>2
+put 1 1
+put 2 2
+get 1
+put 3 3
+get 2
+put 4 4
+get 1
+get 3
+get 4
+</code></pre>
+<p>输出</p>
+<pre><code>1
+-1
+-1
+3
+4
+</code></pre>
+<h5 id="解释"><a class="header" href="#解释">解释</a></h5>
+<p>LRUCache lRUCache = new LRUCache(2);//容量为2，即最多只能保存两个关键字</p>
+<p>lRUCache.put(1, 1); // 缓存是 {1=1}</p>
+<p>lRUCache.put(2, 2); // 缓存是 {1=1, 2=2}</p>
+<p>lRUCache.get(1);    // 返回 1。注意，这里使用了1</p>
+<p>lRUCache.put(3, 3); // 该操作会使得关键字 2 作废（在关键字1和2中，2是最久未被使用的），缓存是 {1=1, 3=3}</p>
+<p>lRUCache.get(2);    // 返回 -1 (未找到)</p>
+<p>lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}</p>
+<p>lRUCache.get(1);    // 返回 -1 (未找到)</p>
+<p>lRUCache.get(3);    // 返回 3</p>
+<p>lRUCache.get(4);    // 返回 4</p>
+<h2 id="自己写出的无法处理大规模输入数据的代码"><a class="header" href="#自己写出的无法处理大规模输入数据的代码">自己写出的无法处理大规模输入数据的代码</a></h2>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;utility&gt;
+using namespace std;
+
+struct item{
+    int new_count = 0;
+    pair&lt;int, int&gt; kv = {0, 0};
+};
+
+
+
+class LRUCache{
+public:
+    int capacity = 0;
+    vector&lt;item&gt; Cache;
+    LRUCache(int capacity){
+        this-&gt;capacity = capacity;
+    }
+
+    int get(int key){
+        int size = Cache.size();
+        for(int i = 0; i &lt; size; i++){
+            if(Cache[i].kv.first == key){
+                for(int j = 0; j &lt; size; j++){
+                    if(Cache[j].new_count &lt; Cache[i].new_count)
+                        Cache[j].new_count++;
+                }
+                Cache[i].new_count = 1;
+
+                return Cache[i].kv.second;
+            }
+        }
+        return -1;
+    }
+
+    void put(int key, int value){
+        int size = Cache.size();
+        bool exist = false;
+        if(size &lt; capacity){
+            for(int i = 0; i &lt; size; i++){
+                if(Cache[i].kv.first == key){
+                    Cache[i].kv.second = value;
+                    exist = true;
+                }
+            }
+            if(!exist){
+                item temp = {1, {key, value}};
+                Cache.push_back(temp);
+                for(int i = 0; i &lt; size; i++){
+                    Cache[i].new_count++;
+                }
+            }
+        }else{
+            int maxCount = 0;
+            int index = 0;
+            for(int i = 0; i &lt; size; i++){
+                if(Cache[i].new_count &gt; maxCount){
+                    maxCount = Cache[i].new_count;
+                    index = i;
+                }
+                Cache[i].new_count++;
+            }
+            Cache[index].new_count = 1;
+            Cache[index].kv = {key, value};
+        }
+    }
+
+};
+
+
+int main() {
+
+    int n;
+
+    cin &gt;&gt; n;
+
+    LRUCache lRUCache = LRUCache(n);
+
+    string operation;
+
+    int key, value;
+
+    string line;
+    while (getline(cin, line)) {
+        istringstream iss(line);
+        iss &gt;&gt; operation;
+        if (operation == "put") {
+            iss &gt;&gt; key &gt;&gt; value;
+            lRUCache.put(key, value);
+        } else if (operation == "get") {
+            iss &gt;&gt; key;
+            cout &lt;&lt; lRUCache.get(key) &lt;&lt; endl;
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="问题分析"><a class="header" href="#问题分析">问题分析</a></h3>
+<ol>
+<li><strong>超出容量处理问题</strong>：代码中处理容量达到上限时的逻辑有些问题，特别是如何更新缓存。如果缓存已经满了（即缓存大小等于容量），需要逐出最久未使用的元素，但目前的逻辑没有处理好这些情况。</li>
+<li><strong>更新 new_count 时未考虑边界情况</strong>：当缓存中已经有该元素时，代码没有正确更新 <code>new_count</code>。</li>
+<li><strong>容量最大时（即 capacity = 3000）</strong>：代码没有专门处理这个边界值的情况。标准的 LRU 要求 O(1) 时间复杂度，而目前的实现需要 O(n) 时间复杂度。</li>
+</ol>
+<h2 id="gpt4给出的正确代码"><a class="header" href="#gpt4给出的正确代码">GPT4给出的正确代码</a></h2>
+<p>为了修正这些问题，应该采用另一种更高效的数据结构来优化 LRU 缓存的实现。一个常见的方法是使用 <code>unordered_map</code>和 <code>list</code>相结合来实现 LRU 缓存，以达到 O(1) 时间复杂度。</p>
+<p>以下是修正后的实现：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;unordered_map&gt;
+#include &lt;list&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;utility&gt;
+
+using namespace std;
+
+class LRUCache {
+public:
+    LRUCache(int capacity) : capacity(capacity) {}
+
+    int get(int key) {
+        auto it = cacheMap.find(key);
+        if (it == cacheMap.end()) {
+            return -1;  // key 不存在
+        } else {
+            cacheList.splice(cacheList.begin(), cacheList, it-&gt;second); // 移动当前的 (key, value) 对到链表头部
+            return it-&gt;second-&gt;second;  // 返回 value
+        }
+    }
+
+    void put(int key, int value) {
+        auto it = cacheMap.find(key);
+        if (it != cacheMap.end()) {
+            cacheList.splice(cacheList.begin(), cacheList, it-&gt;second); // 移动当前的 (key, value) 对到链表头部
+            it-&gt;second-&gt;second = value;  // 更新 value
+        } else {
+            if (cacheList.size() == capacity) {
+                auto last = cacheList.back(); // 取出链表末尾的 (key, value) 对
+                cacheMap.erase(last.first);  // 从 map 中删除该 key
+                cacheList.pop_back();  // 移除链表末尾的元素
+            }
+            cacheList.emplace_front(key, value);  // 在链表头部添加新的 (key, value) 对
+            cacheMap[key] = cacheList.begin();  // 在 map 中记录该 key 对应的 list 迭代器
+        }
+    }
+
+private:
+    int capacity;
+    list&lt;pair&lt;int, int&gt;&gt; cacheList;  // 保存缓存的 (key, value) 对的链表
+    unordered_map&lt;int, list&lt;pair&lt;int, int&gt;&gt;::iterator&gt; cacheMap;  // 保存 key 及其在链表中的位置
+};
+
+int main() {
+    int n;
+    cin &gt;&gt; n;
+
+    LRUCache lRUCache(n);
+
+    string operation;
+    int key, value;
+    string line;
+    while (getline(cin, line)) {
+        if (line.empty()) continue; //忽略空行
+        istringstream iss(line);
+        iss &gt;&gt; operation;
+        if (operation == "put") {
+            iss &gt;&gt; key &gt;&gt; value;
+            lRUCache.put(key, value);
+        } else if (operation == "get") {
+            iss &gt;&gt; key;
+            cout &lt;&lt; lRUCache.get(key) &lt;&lt; endl;
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="修正的关键点"><a class="header" href="#修正的关键点">修正的关键点</a></h3>
+<ol>
+<li>使用 <code>list</code> 和 <code>unordered_map</code> 来实现 LRU 缓存，以保证 <code>get</code> 和 <code>put</code> 操作都在 O(1) 时间复杂度内完成。</li>
+<li>每当 <code>get</code> 或 <code>put</code> 操作时，都将相应的 <code>(key, value)</code> 对移动到链表头部，从而实现 LRU 机制。</li>
+<li>当缓存达到容量限制时，直接移除链表末尾的元素，并从 <code>unordered_map</code> 删除对应的键，这样可以处理容量为 3000 的边界情况。</li>
+</ol>
+<p>这段代码解决了之前版本中存在的多个问题，并使得 LRU 缓存能够在效率上达标，且能够有效处理给定的输入限制。</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="文件管理"><a class="header" href="#文件管理">文件管理</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
